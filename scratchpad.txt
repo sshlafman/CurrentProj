@@ -1,0 +1,18 @@
+class TextEncoder
+   encodingFrom
+   encodingTo
+   convert(inText) : returns outText
+   
+FileProcessor
+    newFileExtension
+    encoder
+	reencodeContent
+	   openfile for reading (line by line? iterator?)
+	   openfile for writing, with new name (w/extension)
+	   encoder.convert(line)
+	   write to new file
+	remove old file
+	run()
+	   reencodeContent()
+	   remove old file
+ 
