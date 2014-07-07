@@ -1,18 +1,49 @@
 class TextEncoder
    encodingFrom
-   encodingTo
+   encodingTo='utf8' (default value)
    convert(inText) : returns outText
-   
+-------------------------
+class FileBytesStream:
+   fileName
+
+   def bytes_from_file(filename, chunksize=8192):
+       with open(filename, "rb") as f:
+           while True:
+               chunk = f.read(chunksize)
+               if chunk:
+                   for b in chunk:
+                       yield b
+               else:
+                  break
+
+   # example:
+   for b in bytes_from_file('filename'):
+       do_stuff_with(b)
+-------------------------   
 FileProcessor
     newFileExtension
     encoder
-	reencodeContent
-	   openfile for reading (line by line? iterator?)
-	   openfile for writing, with new name (w/extension)
+	reencodeContent()
+	   FileBytesStream for reading, writing?
+	   ?? openfile for reading (line by line? iterator?) 
+	   ?? openfile for writing, with new name (w/extension)
 	   encoder.convert(line)
 	   write to new file
-	remove old file
+	remove old file()
 	run()
 	   reencodeContent()
 	   remove old file
  
+Code to convert:
+   open(toFileName, 'wb').write(data.decode('866').encode('utf8'))
+   
+Point to consider: how to decode()->encode() without reading the whole file
+   fromFile = open(fromFileName, 'rb')
+   toFile = open(toFileName, 'wb')
+  
+    with open(toFileName, "rb") as toFile, open(fromFileName, "rb") as fromFile:
+        chunk = fromFile.read(chunkSize)
+        while chunk:
+            chunk = chunk.decode('866')
+            toFile.write(chunk.encode('utf8'))
+            chunk = fromFile.read(chunkSize)
