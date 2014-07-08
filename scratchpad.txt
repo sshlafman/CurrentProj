@@ -2,6 +2,9 @@ class TextEncoder
    encodingFrom
    encodingTo='utf8' (default value)
    convert(inText) : returns outText
+   
+   encodings() -> tuple (sourceEncoding, targetEncoding)
+   test for not passing sourceEncoding
 -------------------------
 class FileBytesStream:
    fileName
