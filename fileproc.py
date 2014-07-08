@@ -1,0 +1,2 @@
+class TextEncoder:
+    pass
