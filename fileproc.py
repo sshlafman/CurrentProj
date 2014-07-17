@@ -12,6 +12,9 @@ class TextConverter:
             raise ValueError
         else:
             codecs.lookup(encoding)
+    
+    def encodings(self):
+        return (self.sourceEncoding, self.targetEncoding)
             
     def convert(self, bytesString):
         if not isinstance(bytesString, bytes):

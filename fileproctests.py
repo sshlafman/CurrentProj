@@ -50,9 +50,11 @@ class TextConverterInvalidEncodingsRaiseExceptionTestCase(unittest.TestCase):
 class TextConverterValidateArgumentEncodingsTestCase(unittest.TestCase):
     def runTest(self):
         """Check that TextConverter is created with correct encodings"""
-        converter = TextConverter('866', 'utf16')
-        self.assertEqual(converter.sourceEncoding, '866', 'incorrect source encoding')
-        self.assertEqual(converter.targetEncoding, 'utf16', 'incorrect target encoding')
+        sourceEncoding = '866'
+        targetEncoding = 'utf16'
+        converter = TextConverter(sourceEncoding, targetEncoding)
+        self.assertEqual(converter.encodings(), (sourceEncoding, targetEncoding), 
+                         'incorrect source encoding')
         
 class TextConverterInputTextIsBytesStringTestCase(unittest.TestCase):
     def runTest(self):
