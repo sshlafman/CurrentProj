@@ -1,8 +1,21 @@
-class TextEncoder:
+class TextConverter:
     """Encodes text into another encoding"""
-    def __init__(self):
-        self.trgEncoding = 'utf8'
-    def targetEncoding(self):
-        return self.trgEncoding
+    def __init__(self, sourceEncoding, targetEncoding='utf8'):
+        self.validateEncoding(sourceEncoding)
+        self.validateEncoding(targetEncoding)
+        self.sourceEncoding = sourceEncoding    
+        self.targetEncoding = targetEncoding
         
-    
+    def validateEncoding(self, encoding):
+        import codecs
+        if not encoding:
+            raise ValueError
+        else:
+            codecs.lookup(encoding)
+            
+    def convert(self, bytesString):
+        if not isinstance(bytesString, bytes):
+            raise ValueError
+        return bytesString.decode(self.sourceEncoding).encode(self.targetEncoding)
+        #text.decode
+                
