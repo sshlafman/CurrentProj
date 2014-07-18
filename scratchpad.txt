@@ -1,6 +1,3 @@
-class TextEncoder
-   reorganize test code: 
-      group similar tests to testcases with setUp() and tearDown()
    
 -------------------------
 class FileBytesStream:
