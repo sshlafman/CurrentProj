@@ -1,5 +1,5 @@
 import unittest
-from fileproc import TextConverter
+from fileproc import TextConverter, FileStream
 
 class TextConverterCheckForInvalidArgumentsTestCase(unittest.TestCase):
     def test_invalid_arguments_raise_exception(self):
@@ -66,7 +66,36 @@ class TextConverterConversionTestCase(unittest.TestCase):
         testText = 'Летят утки'        
         inBytes = bytes(testText, encoding=self.sourceEncoding)
         outBytes = self.converter.convert(inBytes)
-        self.assertEqual(outBytes.decode(self.targetEncoding), testText, 'incorrect output in convert()')          
+        self.assertEqual(outBytes.decode(self.targetEncoding), testText, 'incorrect output in convert()')
+        
+class FileStreamCheckForInvalidArgumentsTestCase(unittest.TestCase):
+    def test_validate_file_name_is_not_empty(self):
+        """Check that FileStream throws exception if no fileName passed to constructor"""
+        try:
+            FileStream('', 'text')
+        except ValueError:
+            pass
+        else:
+            self.fail("expected exception ValueError")
+            
+    def test_validate_mode (self):
+        """Check that FileStream throws exception if mode is neither 'text' nor 'binary'"""
+        try:
+            FileStream('anyfile', 'anymode')
+        except ValueError:
+            pass
+        else:
+            self.fail("expected exception ValueError")
+            
+    def test_default_mode (self):
+        """Check that in FileStream mode is set by default to 'text'"""
+        try:
+            FileStream('anyfile', 'anymode')
+            self.fail('TODO')
+        except ValueError:
+            pass
+        else:
+            self.fail("expected exception ValueError")
         
 if __name__ == "__main__":
     unittest.main()

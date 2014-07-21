@@ -1,20 +1,21 @@
    
 -------------------------
-class FileBytesStream:
+class FileStream:
    fileName
+   mode=text*/binary
 
-   def bytes_from_file(filename, chunksize=8192):
+   def read_chunk(chunksize=8192):
        with open(filename, "rb") as f:
            while True:
                chunk = f.read(chunksize)
                if chunk:
-                   for b in chunk:
-                       yield b
+                   yield chunk
                else:
                   break
 
    # example:
-   for b in bytes_from_file('filename'):
+   bfs = FileBytesStream(filename)
+   for chunk in fbs.read_chunk():
        do_stuff_with(b)
 -------------------------   
 FileProcessor
