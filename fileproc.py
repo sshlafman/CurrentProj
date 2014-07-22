@@ -22,10 +22,10 @@ class TextConverter:
         return bytesString.decode(self.sourceEncoding).encode(self.targetEncoding)
 
 class FileStream:
-    def __init__(self, fileName, mode):
+    def __init__(self, fileName, mode='text'):
         if not fileName:
             raise ValueError
-        if (mode != 'text') or (mode != 'binary'):
+        if (mode != 'text') and (mode != 'binary'):
             raise ValueError
         self.fileName = fileName
         self.mode = mode

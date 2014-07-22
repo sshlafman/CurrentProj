@@ -88,14 +88,18 @@ class FileStreamCheckForInvalidArgumentsTestCase(unittest.TestCase):
             self.fail("expected exception ValueError")
             
     def test_default_mode (self):
-        """Check that in FileStream mode is set by default to 'text'"""
-        try:
-            FileStream('anyfile', 'anymode')
-            self.fail('TODO')
-        except ValueError:
-            pass
-        else:
-            self.fail("expected exception ValueError")
+        """Check that FileStream's mode is set by default to 'text'"""
+        expectedMode = 'text'
+        file = FileStream('anyfile')
+        self.assertEqual(file.mode, expectedMode, 'Not %s mode by default' % expectedMode)
+        
+    def test_setting_explicit_arguments (self):
+        """Check that arguments of FileStream's Cstr are set correctly"""
+        expectedName = 'anyfile'
+        expectedMode = 'text'
+        file = FileStream(expectedName, expectedMode)
+        self.assertEqual(file.mode, expectedMode, 'Wrong mode')
+        self.assertEqual(file.fileName, expectedName, 'Wrong fileName')
         
 if __name__ == "__main__":
     unittest.main()
