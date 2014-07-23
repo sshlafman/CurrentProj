@@ -22,12 +22,42 @@ class TextConverter:
         return bytesString.decode(self.sourceEncoding).encode(self.targetEncoding)
 
 class FileStream:
-    def __init__(self, fileName, mode='text'):
+    def __init__(self, fileName, mode='text', fileMode='read'):
         if not fileName:
             raise ValueError
         if (mode != 'text') and (mode != 'binary'):
             raise ValueError
+        if (fileMode != 'read') and (fileMode != 'write') and \
+             (fileMode != 'readwrite'):
+            raise ValueError
         self.fileName = fileName
         self.mode = mode
+        self.fileMode = fileMode
+        self._fileHandle = None
         
-                
+    def open(self):
+        if self.fileMode == 'read':
+            mode = 'r'
+        elif self.fileMode == 'write':
+            mode = 'w'
+        elif self.fileMode == 'readwrite':
+            mode = 'r+'
+        self._fileHandle = open(self.fileName, mode)
+    
+    def close(self):
+        self._fileHandle.close() 
+        
+    def is_readable(self):
+        if self._fileHandle is not None:
+            return self._fileHandle.readable()
+        return False
+
+    def is_writable(self):
+        if self._fileHandle is not None:
+            return self._fileHandle.writable()
+        return False
+
+    def is_closed(self):
+        if self._fileHandle is not None:
+            return self._fileHandle.closed
+        return False  

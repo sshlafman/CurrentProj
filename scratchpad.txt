@@ -1,10 +1,7 @@
-   
--------------------------
-class FileStream:
-   fileName
-   mode=text*/binary
-
-   def read_chunk(chunksize=8192):
+-------------------------   
+class FileReadStream: FileStream
+   Cstr
+   def read(fileHandle, chunksize=8192):
        with open(filename, "rb") as f:
            while True:
                chunk = f.read(chunksize)
@@ -13,10 +10,18 @@ class FileStream:
                else:
                   break
 
+-------------------------
+class FileWriteStrean: FileStream
+  def write(data):
+
+Organize test cases for classes into test suites
+----------------
+
+
    # example:
-   bfs = FileBytesStream(filename)
-   for chunk in fbs.read_chunk():
-       do_stuff_with(b)
+   #bfs = FileBytesStream(filename)
+   #for chunk in fbs.read_chunk():
+   #    do_stuff_with(b)
 -------------------------   
 FileProcessor
     newFileExtension
